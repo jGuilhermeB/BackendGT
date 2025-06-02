@@ -18,11 +18,23 @@ router.get('/:id/itens', async (req, res) => {
         res.status(500).json({ error: 'Erro ao listar itens doo carrinho' });      
     }
 })
-router.post('/', (req, res) => {
-    res.send('Criar carrinho') 
+router.post('/', async(req, res) => {
+ const {user_id} = req.body
+ try {
+    await client.query(
+        'INSERT INTO cart (user_id) VALUES ($1)'
+        [user_id]
+    )
+    res.status(201).json({message:'Carrinho criado com sucesso'})
+ } catch (error) {
+    console.log("Erro ao criar carrinho:", error);
+    res.status(500).json({ error: 'Erro ao criar carrinho' , details: error.message});  
+    
+ }
  })
-router.post('/item', (req, res) => {
-    res.send('Adicionar item ao carrinho') 
+
+router.post('/item', async (req, res) => {
+
  })
 router.put('/item/:id', (req, res) => {
     res.send('Alterar a quantidade item carrinho') 
