@@ -15,7 +15,7 @@ router.get('/:id/itens', async (req, res) => {
     } catch (error) {
       
   console.log("Erro ao listar itens do carrinho:", error);
-        res.status(500).json({ error: 'Erro ao listar itens do carrinho' });      
+        res.status(500).json({ error: 'Erro ao listar itens doo carrinho' });      
     }
 })
 router.post('/', (req, res) => {
