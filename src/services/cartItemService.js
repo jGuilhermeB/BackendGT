@@ -1,5 +1,6 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const {cartcheck} = require ('../repositories/cartRepository')
 const { alterarItensRepository, deletarItensRepository } = require('../repositories/cartItemRepository')
 
@@ -46,9 +47,22 @@ return await deletarItensRepository(id)
 =======
 async function inserirItensService(params) {
     
+=======
+const {cartcheck} = require ('../repositories/cartRepository')
+const { alterarItensRepository, deletarItensRepository } = require('../repositories/cartItemRepository')
+>>>>>>> 2d2abdf (refatorando prisma)
 
+async function inserirItensService(cart_id) {
+    const carrinhoCheck = await cartcheck(cart_id)
+    if (!carrinhoCheck) {
+       const error = new Error('Carrinho não encontrado')
+       error.status = 404
+       throw error;
+    }
     if (!Number.isInteger(cart_id) || !Number.isInteger(product_id) || !Number.isInteger(quantity)) {
-        return res.status(400).json({error: "Erro no corpo da requisição"})
+        const error = new Error('Erro no corpo da requisição')
+        error.status = 400
+        throw error;
     }
     client.query(
         `INSERT INTO cart_item (cart_id, product_id, quantity)
@@ -56,21 +70,37 @@ async function inserirItensService(params) {
     )
 }
 
-async function alterarItensService(params) {
+async function alterarItensService(id, quantity) {
   
 
     if (!Number.isInteger(quantity) || quantity < 1) {
-        return res.status(400).json({ error: "quantidade inválida. Deve ser número inteiro maior que 0"})
+        const error = new Error('quantidade inválida Deve ser numero maior que 0'). 
+        error.status = 400
+        throw error;
     }
+
+    
+    const result = await alterarItensRepository(id, quantity)
+    if (!result) {
+        const error = new Error('Item não encontrado para alterar')
+        error.status = 404
+        throw error;
+        
+    }
+    return result;
 }
 
 async function deletarItensService(params) {
+<<<<<<< HEAD
 <<<<<<< HEAD
     const {id} = req.params
 >>>>>>> c604b33 (refatorando controller para prisma)
 =======
 
 >>>>>>> c59338b (refatorando de controller para service)
+=======
+return await deletarItensRepository(id)
+>>>>>>> 2d2abdf (refatorando prisma)
 }
 
 module.exports = {
