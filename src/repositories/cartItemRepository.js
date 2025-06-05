@@ -1,5 +1,4 @@
 const { inserirItensRepository } = require("../controllers/cartItemController")
-<<<<<<< HEAD
  const prisma = require ('../config/prisma.js')
 
 async function inserirItensRepository() {
@@ -43,10 +42,4 @@ module.exports = {
     alterarItensRepository,
     deletarItensRepository
 }
-=======
-
-async function inserirItensRepository() {
-    client.query(   [cart_id])
-    
-} 
->>>>>>> 2d2abdf (refatorando prisma)
+// teste01
